@@ -312,7 +312,7 @@ ARCHIVE=pylucene-$(VERSION)-src.tar.gz
 distrib:
 	mkdir -p distrib
 	/opt/local/bin/svn export --force . distrib/pylucene-$(VERSION)
-	tar -cf - --disable-copyfile --exclude build --exclude gradle.properties --exclude '.[a-z]*' `find $(LUCENE_SRC) -type l | xargs -n 1 echo --exclude` --include extensions/gradle.properties $(LUCENE_SRC) | tar -C distrib/pylucene-$(VERSION) -xvf -
+	tar -cf - --disable-copyfile --exclude build --exclude gradle.properties --exclude '.[a-z]*' `find $(LUCENE_SRC) -type l | xargs -n 1 echo --exclude` $(LUCENE_SRC) | tar -C distrib/pylucene-$(VERSION) -xvf -
 	cd distrib; tar --disable-copyfile -cvzf $(ARCHIVE) pylucene-$(VERSION)
 	cd distrib; /usr/local/bin/gpg --armor --output $(ARCHIVE).asc --detach-sig $(ARCHIVE)
 	cd distrib; shasum -a 256 $(ARCHIVE) > $(ARCHIVE).sha256
