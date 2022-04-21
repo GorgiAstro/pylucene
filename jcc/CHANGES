@@ -4,6 +4,7 @@ Version 3.11 -> 3.12
  - --find-jvm-dll changed to a string from bool, defaulting to "client"
  - fixed --find-jvm-dll support to use new os.add_dll_directory() for py >= 3.8
  - fixed bug PYLUCENE-62 (with help from Petrus Hyvönen)
+ - refreshed linux build config to default to temurin JDK 17
 
 Version 3.10 -> 3.11
 ---------------------

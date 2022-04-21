@@ -71,7 +71,7 @@ else:
 JDK = {
     'darwin': JAVAHOME or JAVAFRAMEWORKS,
     'ipod': '/usr/include/gcc',
-    'linux': '/usr/lib/jvm/java-8-oracle',
+    'linux': '/usr/lib/jvm/temurin-17-jdk-amd64',
     'sunos5': '/usr/jdk/instances/jdk1.6.0',
     'win32': JAVAHOME,
     'mingw32': JAVAHOME,
@@ -167,11 +167,14 @@ LFLAGS = {
                     '-L%(linux)s/jre/lib/i386/client' %(JDK), '-ljvm',
                     '-Wl,-rpath=%(linux)s/jre/lib/i386:%(linux)s/jre/lib/i386/client' %(JDK)],
     'linux/i686': ['-L%(linux)s/jre/lib/i386' %(JDK), '-ljava',
-                    '-L%(linux)s/jre/lib/i386/client' %(JDK), '-ljvm',
-                    '-Wl,-rpath=%(linux)s/jre/lib/i386:%(linux)s/jre/lib/i386/client' %(JDK)],
+                   '-L%(linux)s/jre/lib/i386/client' %(JDK), '-ljvm',
+                   '-Wl,-rpath=%(linux)s/jre/lib/i386:%(linux)s/jre/lib/i386/client' %(JDK)],
     'linux/x86_64': ['-L%(linux)s/jre/lib/amd64' %(JDK), '-ljava',
-                      '-L%(linux)s/jre/lib/amd64/server' %(JDK), '-ljvm',
-                      '-Wl,-rpath=%(linux)s/jre/lib/amd64:%(linux)s/jre/lib/amd64/server' %(JDK)],
+                     '-L%(linux)s/jre/lib/amd64/server' %(JDK), '-ljvm',
+                     '-Wl,-rpath=%(linux)s/jre/lib/amd64:%(linux)s/jre/lib/amd64/server' %(JDK)],
+    'linux/temurin': ['-L%(linux)s/lib' %(JDK), '-ljava',
+                      '-L%(linux)s/lib/server' %(JDK), '-ljvm',
+                      '-Wl,-rpath=%(linux)s/lib:%(linux)s/lib/server' %(JDK)],
     'sunos5': ['-L%(sunos5)s/jre/lib/i386' %(JDK), '-ljava',
                '-L%(sunos5)s/jre/lib/i386/client' %(JDK), '-ljvm',
                '-R%(sunos5)s/jre/lib/i386:%(sunos5)s/jre/lib/i386/client' %(JDK)],
@@ -188,7 +191,10 @@ IMPLIB_LFLAGS = {
 }
 
 if platform == 'linux':
-    LFLAGS['linux'] = LFLAGS['linux/%s' %(machine)]
+    if 'temurin' in JDK['linux']:
+        LFLAGS['linux'] = LFLAGS['linux/temurin']
+    else:
+        LFLAGS['linux'] = LFLAGS['linux/%s' %(machine)]
 elif platform == 'darwin':
     if JAVAHOME is not None:
         if 'temurin' in JAVAHOME:
