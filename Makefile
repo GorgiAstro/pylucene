@@ -57,10 +57,10 @@ LUCENE=$(LUCENE_SRC)/lucene
 #JCC=$(PYTHON) -m jcc.__main__ --shared --arch x86_64
 #NUM_FILES=16
 
-# Linux     (Debian Jessie 64-bit, Python 3.4.2, Oracle Java 1.8                
+# Linux     (Debian Bullseye 64-bit, Python 3.9.2, Temurin Java 17
 # Be sure to also set JDK['linux'] in jcc's setup.py to the JAVA_HOME value     
 # used below for ANT (and rebuild jcc after changing it).                       
-#PREFIX_PYTHON=/usr
+#PREFIX_PYTHON=/home/vajda/apache/pylucene/_install3
 #PYTHON=$(PREFIX_PYTHON)/bin/python3
 #JCC=$(PYTHON) -m jcc --shared
 #NUM_FILES=16
