@@ -72,14 +72,15 @@ public class PythonSet implements Set<Object> {
     @Override
     public native Object[] toArray();
     
+    @SuppressWarnings("unchecked")
     @Override
-    public Object[] toArray(Object[] a)
+    public <T> T[] toArray(T[] a)
     {
         Object[] array = toArray();
 
-        if (a.length < array.length)
-            a = (Object[]) Array.newInstance(a.getClass().getComponentType(),
-                                             array.length);
+        if (a.length < array.length) {
+            a = (T[]) Array.newInstance(a.getClass().getComponentType(), array.length);
+        }
 
         System.arraycopy(array, 0, a, 0, array.length);
 

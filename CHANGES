@@ -2,6 +2,7 @@ Version 8.11.0 -> 9.1.0
 -----------------------
  - using Lucene 9.1.0 sources (now built with gradle)
  - PyLucene built with JCC 3.12
+ - fixed warnings in extensions PythonList and PythonSet.java (Dawid Weiss)
 
 Version 8.9.0 -> 8.11.0
 -----------------------
