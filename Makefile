@@ -15,8 +15,8 @@
 # site-packages directory.
 #
 
-VERSION=9.1.0
-LUCENE_VER=9.1.0
+VERSION=9.4.1
+LUCENE_VER=9.4.1
 PYLUCENE:=$(shell pwd)
 LUCENE_SRC=lucene-java-$(LUCENE_VER)
 LUCENE=$(LUCENE_SRC)/lucene
@@ -45,10 +45,16 @@ LUCENE=$(LUCENE_SRC)/lucene
 # limit.
 #
 
-# Mac OS X 11.4 (64-bit intel Python 3.9, Java 17)
+# M2 Mac OS X 12.5 (64-bit intel Python 3.10, Java 17)
 #PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3
 #PYTHON=$(PREFIX_PYTHON)/bin/python
-#JCC=$(PYTHON) -m jcc --shared --arch x86_64 --wheel
+#JCC=$(PYTHON) -m jcc --shared --arch aarch64 --wheel
+#NUM_FILES=16
+
+# Linux     (Debian Bullseye 64-bit, Python 3.9.2, Temurin Java 17
+#PREFIX_PYTHON=/home/vajda/apache/pylucene/_install3
+#PYTHON=$(PREFIX_PYTHON)/bin/python3
+#JCC=$(PYTHON) -m jcc --shared
 #NUM_FILES=16
 
 # Mac OS X 11.4 (64-bit Python 2.7, Java 17)
@@ -57,17 +63,7 @@ LUCENE=$(LUCENE_SRC)/lucene
 #JCC=$(PYTHON) -m jcc.__main__ --shared --arch x86_64
 #NUM_FILES=16
 
-# Linux     (Debian Bullseye 64-bit, Python 3.9.2, Temurin Java 17
-# Be sure to also set JDK['linux'] in jcc's setup.py to the JAVA_HOME value     
-# used below for ANT (and rebuild jcc after changing it).                       
-#PREFIX_PYTHON=/home/vajda/apache/pylucene/_install3
-#PYTHON=$(PREFIX_PYTHON)/bin/python3
-#JCC=$(PYTHON) -m jcc --shared
-#NUM_FILES=16
-
 # Linux     (Debian Jessie 64-bit, Python 2.7.9, Oracle Java 1.8
-# Be sure to also set JDK['linux2'] in jcc's setup.py to the JAVA_HOME value
-# used below for ANT (and rebuild jcc after changing it).
 #PREFIX_PYTHON=/opt/apache/pylucene/_install
 #PYTHON=$(PREFIX_PYTHON)/bin/python
 #JCC=$(PYTHON) -m jcc --shared
@@ -79,22 +75,10 @@ LUCENE=$(LUCENE_SRC)/lucene
 #JCC=$(PYTHON) -m jcc
 #NUM_FILES=16
 
-# Windows   (Win32, Python 2.5.1, Java 1.6, ant 1.7.0)
-#PREFIX_PYTHON=/cygdrive/o/Python-2.5.2/PCbuild
-#PYTHON=$(PREFIX_PYTHON)/python.exe
-#JCC=$(PYTHON) -m jcc --shared
-#NUM_FILES=16
-
-# Windows   (Win32, msys/MinGW, Python 2.6.4, Java 1.6, ant 1.7.1 (WinAnt))
-#PREFIX_PYTHON=/c/Python26
-#PYTHON=$(PREFIX_PYTHON)/python.exe
-#JCC=$(PYTHON) -m jcc.__main__ --shared --compiler mingw32
-#NUM_FILES=16
-
 # Windows   (Win32, Python 2.7, Java 1.6, ant 1.8.1, Java not on PATH)
 #PREFIX_PYTHON=/cygdrive/c/Python27
 #PYTHON=$(PREFIX_PYTHON)/python.exe
-#JCC=$(PYTHON) -m jcc --shared --find-jvm-dll
+#JCC=$(PYTHON) -m jcc --shared --find-jvm-dll client
 #NUM_FILES=16
 
 JARS=$(LUCENE_JAR)
@@ -165,7 +149,7 @@ SUGGEST_JAR=$(LUCENE)/suggest/build/runtimeJars/lucene-suggest-$(LUCENE_VER)-SNA
 ANTLR_JAR=$(LUCENE)/expressions/build/runtimeJars/antlr4-runtime-4.5.1-1.jar
 ASM_JAR=$(LUCENE)/expressions/build/runtimeJars/asm-7.2.jar
 ASM_COMMONS_JAR=$(LUCENE)/expressions/build/runtimeJars/asm-commons-7.2.jar
-HPPC_JAR=$(LUCENE)/facet/build/runtimeJars/hppc-0.9.0.jar
+HPPC_JAR=$(LUCENE)/facet/build/runtimeJars/hppc-0.9.1.jar
 
 ICUPKG:=$(shell which icupkg)
 
