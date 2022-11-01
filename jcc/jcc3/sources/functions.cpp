@@ -1739,7 +1739,7 @@ void installType(PyTypeObject **type, PyType_Def *def,
 
         if (isExtension)
         {
-            Py_TYPE(*type) = PY_TYPE(FinalizerClass);
+            Py_SET_TYPE(*type, PY_TYPE(FinalizerClass));
             Py_INCREF(PY_TYPE(FinalizerClass));
         }
 
