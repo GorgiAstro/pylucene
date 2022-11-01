@@ -1,3 +1,8 @@
+Version 3.12 -> 3.13
+---------------------
+ - fixed bug PYLUCENE-66
+ - added support for Python 3.11
+
 Version 3.11 -> 3.12
 ---------------------
  - fixed bug with not checking presence of compiled extension directory
