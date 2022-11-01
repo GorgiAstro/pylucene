@@ -45,8 +45,8 @@ LUCENE=$(LUCENE_SRC)/lucene
 # limit.
 #
 
-# M2 Mac OS X 12.5 (64-bit intel Python 3.10, Java 17)
-#PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3
+# M2 Mac OS X 12.5 (64-bit intel Python 3.11, Java 17)
+#PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3.11
 #PYTHON=$(PREFIX_PYTHON)/bin/python
 #JCC=$(PYTHON) -m jcc --shared --arch aarch64 --wheel
 #NUM_FILES=16
