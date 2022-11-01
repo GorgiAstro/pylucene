@@ -1739,7 +1739,11 @@ void installType(PyTypeObject **type, PyType_Def *def,
 
         if (isExtension)
         {
+#if PY_VERSION_HEX >= 0x030b0000
             Py_SET_TYPE(*type, PY_TYPE(FinalizerClass));
+#else
+            Py_TYPE(*type) = PY_TYPE(FinalizerClass);
+#endif
             Py_INCREF(PY_TYPE(FinalizerClass));
         }
 
