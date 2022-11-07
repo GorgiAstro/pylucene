@@ -1,3 +1,9 @@
+Version 9.1.0 -> 9.4.1
+----------------------
+ - using Lucene 9.4.1 sources (now built with gradle)
+ - PyLucene built with JCC 3.13
+ - PyLucene no longer tested with Python 2
+
 Version 8.11.0 -> 9.1.0
 -----------------------
  - using Lucene 9.1.0 sources (now built with gradle)
