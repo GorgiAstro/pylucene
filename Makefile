@@ -46,10 +46,10 @@ LUCENE=$(LUCENE_SRC)/lucene
 #
 
 # M2 Mac OS X 12.6 (64-bit intel Python 3.11, Java 17)
-PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3.11
-PYTHON=$(PREFIX_PYTHON)/bin/python
-JCC=$(PYTHON) -m jcc --shared --arch aarch64 --wheel
-NUM_FILES=16
+# PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3.11
+# PYTHON=$(PREFIX_PYTHON)/bin/python
+# JCC=$(PYTHON) -m jcc --shared --arch aarch64 --wheel
+# NUM_FILES=16
 
 # Linux     (Debian Bullseye 64-bit, Python 3.9.2, Temurin Java 17
 #PREFIX_PYTHON=/home/vajda/apache/pylucene/_install3
