@@ -15,8 +15,8 @@
 # site-packages directory.
 #
 
-VERSION=9.4.1
-LUCENE_VER=9.4.1
+VERSION=9.6.0
+LUCENE_VER=9.6.0
 PYLUCENE:=$(shell pwd)
 LUCENE_SRC=lucene-java-$(LUCENE_VER)
 LUCENE=$(LUCENE_SRC)/lucene
@@ -46,10 +46,10 @@ LUCENE=$(LUCENE_SRC)/lucene
 #
 
 # M2 Mac OS X 12.6 (64-bit intel Python 3.11, Java 17)
-#PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3.11
-#PYTHON=$(PREFIX_PYTHON)/bin/python
-#JCC=$(PYTHON) -m jcc --shared --arch aarch64 --wheel
-#NUM_FILES=16
+PREFIX_PYTHON=/Users/vajda/apache/pylucene/_install3.11
+PYTHON=$(PREFIX_PYTHON)/bin/python
+JCC=$(PYTHON) -m jcc --shared --arch aarch64 --wheel
+NUM_FILES=16
 
 # Linux     (Debian Bullseye 64-bit, Python 3.9.2, Temurin Java 17
 #PREFIX_PYTHON=/home/vajda/apache/pylucene/_install3
@@ -97,6 +97,7 @@ JARS+=$(JOIN_JAR)               # join module
 JARS+=$(KUROMOJI_JAR)           # japanese analyzer module
 JARS+=$(MEMORY_JAR)             # single-document memory index
 JARS+=$(MISC_JAR)               # misc
+JARS+=$(MONITOR_JAR)            # monitor
 JARS+=$(MORFOLOGIK_JAR)         # morfologik analyzer module
 JARS+=$(NORI_JAR)               # korean analyzer module
 #JARS+=$(PHONETIC_JAR)           # phonetic analyzer module
@@ -135,6 +136,7 @@ JOIN_JAR=$(LUCENE)/join/build/runtimeJars/lucene-join-$(LUCENE_VER)-SNAPSHOT.jar
 KUROMOJI_JAR=$(LUCENE)/analysis/kuromoji/build/runtimeJars/lucene-analysis-kuromoji-$(LUCENE_VER)-SNAPSHOT.jar
 MEMORY_JAR=$(LUCENE)/memory/build/runtimeJars/lucene-memory-$(LUCENE_VER)-SNAPSHOT.jar
 MISC_JAR=$(LUCENE)/misc/build/runtimeJars/lucene-misc-$(LUCENE_VER)-SNAPSHOT.jar
+MONITOR_JAR=$(LUCENE)/monitor/build/runtimeJars/lucene-monitor-$(LUCENE_VER)-SNAPSHOT.jar
 NORI_JAR=$(LUCENE)/analysis/nori/build/runtimeJars/lucene-analysis-nori-$(LUCENE_VER)-SNAPSHOT.jar
 PHONETIC_JAR=$(LUCENE)/analysis/phonetic/build/runtimeJars/lucene-analysis-phonetic-$(LUCENE_VER)-SNAPSHOT.jar
 QUERIES_JAR=$(LUCENE)/queries/build/runtimeJars/lucene-queries-$(LUCENE_VER)-SNAPSHOT.jar
@@ -146,7 +148,7 @@ SPATIAL_EXTRAS_JAR=$(LUCENE)/spatial-extras/build/runtimeJars/lucene-spatial-ext
 STEMPEL_JAR=$(LUCENE)/analysis/stempel/build/runtimeJars/lucene-analysis-stempel-$(LUCENE_VER)-SNAPSHOT.jar
 SUGGEST_JAR=$(LUCENE)/suggest/build/runtimeJars/lucene-suggest-$(LUCENE_VER)-SNAPSHOT.jar
 
-ANTLR_JAR=$(LUCENE)/expressions/build/runtimeJars/antlr4-runtime-4.5.1-1.jar
+ANTLR_JAR=$(LUCENE)/expressions/build/runtimeJars/antlr4-runtime-4.11.1.jar
 ASM_JAR=$(LUCENE)/expressions/build/runtimeJars/asm-7.2.jar
 ASM_COMMONS_JAR=$(LUCENE)/expressions/build/runtimeJars/asm-commons-7.2.jar
 HPPC_JAR=$(LUCENE)/facet/build/runtimeJars/hppc-0.9.1.jar
@@ -298,7 +300,7 @@ distrib:
 	/opt/local/bin/svn export --force . distrib/pylucene-$(VERSION)
 	tar -cf - --disable-copyfile --exclude build --exclude gradle.properties --exclude '.[a-z]*' `find $(LUCENE_SRC) -type l | xargs -n 1 echo --exclude` $(LUCENE_SRC) | tar -C distrib/pylucene-$(VERSION) -xvf -
 	cd distrib; tar --disable-copyfile -cvzf $(ARCHIVE) pylucene-$(VERSION)
-	cd distrib; /opt/local/bin/gpg --armor --output $(ARCHIVE).asc --detach-sig $(ARCHIVE)
+	cd distrib; /opt/local/bin/gpg -u code --armor --output $(ARCHIVE).asc --detach-sig $(ARCHIVE)
 	cd distrib; shasum -a 256 $(ARCHIVE) > $(ARCHIVE).sha256
 
 stage:
