@@ -1587,6 +1587,62 @@ def module(out, allInOne, classes, imports, cppdir, moduleName,
     line(out, 1, '}')
     line(out, 0, '}')
 
+from distutils.core import Extension
+import datetime
+import os.path as path
+import os
+
+def createSetupScript(args):
+    print("creating a setup script")
+    filename = 'setup.py'
+
+    if path.exists(filename):
+        os.rename(filename, 'setup.py~')
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    class Extension_repr(Extension):
+        def __init__(self, E):
+            self.E = E
+
+        def __repr__(self):
+            pairs = []
+            for k, v in self.E.__dict__.items():
+                pairs.append((k, v))
+            result = 'Extension('
+            for p in pairs:
+                result += p[0] + '=' + repr(p[1]) + ','
+
+            # remove trailing comma
+            result = result[:-1]
+            result += ')'
+            return result
+
+
+    f = open(filename, 'w')
+    header = '#!/usr/bin/env python\n' \
+        '# This setup is was created with Apache JCC ' + JCC_VER + \
+        ' on ' + now + '\n' \
+        'from setuptools import setup, Extension\n'
+    sep = ',\n'
+
+    body = ['setup(\n',
+            'name=' + repr(args['name']) + sep,
+            'packages=' + str(args['packages']) + sep,
+            'package_dir=' + str(args['package_dir']) + sep,
+            'package_data=' + str(args['package_data']) + sep,
+            'version=' + repr(args['version']) + sep,
+            'ext_modules=' + repr([Extension_repr(e) for e in args['ext_modules']]) + sep,
+            # not needed.
+            # 'script_args='  str(args['script_args'])  sep,
+            'zip_safe=' + str(args['zip_safe']) + sep,
+            'setup_requires = [\'JCC >= ' + JCC_VER + '\']' + sep,
+            'install_requires = [\'JCC >= ' + JCC_VER + '\']',
+            ')'
+            ]
+
+    f.write(header)
+    f.writelines(body)
+    f.close()
 
 def compile(env, jccPath, output, moduleName, install, dist, debug, jars,
             version, prefix, root, install_dir, home_dir, use_distutils,
@@ -1611,7 +1667,7 @@ def compile(env, jccPath, output, moduleName, install, dist, debug, jars,
         raise FileNotFoundError(
             "%s directory not found, module %s needs to be compiled first" %(
                 os.path.join(output, extname), extname))
-    
+
     modulePath = os.path.join(output, moduleName)
     if not os.path.isdir(modulePath):
         os.makedirs(modulePath)
@@ -1890,4 +1946,7 @@ def compile(env, jccPath, output, moduleName, install, dist, debug, jars,
 
     print("setup args = %s" % args)
 
-    setup(**args)
+    if 'sdist' in extra_setup_args:
+        createSetupScript(args)
+    else:
+        setup(**args)
