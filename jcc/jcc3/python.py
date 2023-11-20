@@ -1630,13 +1630,7 @@ def createSetupScript(args):
             'packages=' + str(args['packages']) + sep,
             'package_dir=' + str(args['package_dir']) + sep,
             'package_data=' + str(args['package_data']) + sep,
-            'version=' + repr(args['version']) + sep,
             'ext_modules=' + repr([Extension_repr(e) for e in args['ext_modules']]) + sep,
-            # not needed.
-            # 'script_args='  str(args['script_args'])  sep,
-            'zip_safe=' + str(args['zip_safe']) + sep,
-            'setup_requires = [\'JCC >= ' + JCC_VER + '\']' + sep,
-            'install_requires = [\'JCC >= ' + JCC_VER + '\']',
             ')'
             ]
 
