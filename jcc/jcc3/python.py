@@ -1608,13 +1608,14 @@ def createSetupScript(args):
             pairs = []
             for k, v in self.E.__dict__.items():
                 pairs.append((k, v))
-            result = 'Extension('
+            result = '''
+    Extension('''
             for p in pairs:
-                result += p[0] + '=' + repr(p[1]) + ','
+                result += '\n        ' + p[0] + '=' + repr(p[1]) + ','
 
             # remove trailing comma
             result = result[:-1]
-            result += ')'
+            result += '\n)'
             return result
 
 
